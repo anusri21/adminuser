@@ -57,15 +57,15 @@
                             <li class="xn-openable">
                                 <a href="#"><span class="fa fa-sign-in"></span> Product Category</a>
                                 <ul>                                    
-                                    <li><a href="{{url('admin/userlist')}}"><span class="fa fa-user"></span>Add Product Category</a></li>
-                                    <li><a href="{{url('admin/userlist')}}"><span class="fa fa-user"></span>Product CategoryList</a></li>
+                                    <li><a href="{{url('admin/addcategory')}}"><span class="fa fa-user"></span>Add Product Category</a></li>
+                                    <li><a href="{{url('admin/productcategorylist')}}"><span class="fa fa-user"></span>Product CategoryList</a></li>
                                 </ul>
                             </li>                           
                             <li class="xn-openable">
                                 <a href="#"><span class="fa fa-sign-in"></span> Products</a>
                                 <ul>                                    
-                                    <li><a href="{{url('admin/userlist')}}"><span class="fa fa-user"></span>Add Products</a></li>
-                                    <li><a href="{{url('admin/userlist')}}"><span class="fa fa-user"></span>Products List</a></li>
+                                    <li><a href="{{url('admin/addproducts')}}"><span class="fa fa-user"></span>Add Products</a></li>
+                                    <li><a href="{{url('admin/productslist')}}"><span class="fa fa-user"></span>Products List</a></li>
                                 </ul>
                             </li>
                         </ul>
