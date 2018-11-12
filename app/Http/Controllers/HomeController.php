@@ -102,7 +102,65 @@ class HomeController extends Controller
             'updated_at' => date("Y-m-d H:i:s")
         );
         $updaterole=DB::table('user_details')->where('id', $id)->update($role);
-        return redirect('admin/userlist ');
+        return redirect('admin/userlist ');   
+    }
+
+    public function addproducts()
+    {
+        $category = DB::table('product_category')->get();
+        return view('admin.pages.addproduct')->with('category',$category);
+    }
+
+    public function productslist()
+    {
+        $products = DB::table('products')->where('status',1)->get();
+        return view('admin.pages.productslist')->with('products',$products);
+    }
+    public function editproducts($id)
+    {
+        $products = DB::table('products')->where('id',$id)->first();
+        $category = DB::table('product_category')->get();
+        return view('admin.pages.editproducts')->with('products',$products)->with('category',$category);
+    }
+    public function deleteproducts($id)
+    {
+        $products = array(
+           
+            'status'=>0,
+            'updated_at' => date("Y-m-d H:i:s")
+        );
+        $updateproducts=DB::table('products')->where('id', $id)->update($products);
+        return redirect('admin/productslist ');
        
     }
+    public function addcategory()
+    {
+        return view('admin.pages.addcategory');
+    }
+
+    public function productcategorylist()
+    {
+        $productcategory = DB::table('product_category')->where('status',1)->get();
+        return view('admin.pages.productcategorylist')->with('productcategory',$productcategory);
+    }
+    public function editproductcategory($id)
+    {
+        
+        $productcategory = DB::table('product_category')->where('id',$id)->first();
+        //dd($productcategory);
+        return view('admin.pages.editproductcategory')->with('productcategory',$productcategory);
+    }
+    public function deleteproductcategory($id)
+    {
+        $productcategory = array(
+           
+            'status'=>0,
+            'updated_at' => date("Y-m-d H:i:s")
+        );
+        $updateproductcategory=DB::table('product_category')->where('id', $id)->update($productcategory);
+        return redirect('admin/productcategorylist ');
+       
+    }
+   
+    
 }

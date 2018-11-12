@@ -56,4 +56,35 @@ class Admin extends Model
         }
     }
     
+    public function addCategory($input) {        
+        $query = DB::table('product_category');
+        if ($input['id']) {
+    
+            $input['updated_at'] = Carbon::now()->toDateTimeString();
+            $result = $query->where([['id', $input['id']]])->update($input);
+            return $input['id'];
+            
+        } else {
+        
+            $input['created_at'] = Carbon::now()->toDateTimeString();
+            $result = $query->insertGetId($input);
+            return $result;
+        }
+    }
+    public function products($input) {        
+        $query = DB::table('products');
+        if ($input['id']) {
+    
+            $input['updated_at'] = Carbon::now()->toDateTimeString();
+            $result = $query->where([['id', $input['id']]])->update($input);
+            return $input['id'];
+            
+        } else {
+        
+            $input['created_at'] = Carbon::now()->toDateTimeString();
+            $result = $query->insertGetId($input);
+            return $result;
+        }
+    }
+    
 }

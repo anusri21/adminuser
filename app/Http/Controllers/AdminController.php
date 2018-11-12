@@ -191,5 +191,137 @@ class AdminController extends Controller
        
     }
 
+    public function addcategory(Request $request)
+    {
+        $data=$request->all();
+         //dd($data);
 
+        if ($data != null) {
+
+            $input = [
+                'id' => isset($data['id']) ? $data['id'] : false,
+                'category' => isset($data['category']) ? $data['category'] : '',
+                'desc' => isset($data['desc']) ? $data['desc'] : '',
+               
+            ];
+            //dd($input);
+           
+            $rules = array(
+                'category' => 'required',
+                'desc' => 'required',
+               
+            );
+            $checkValid = Validator::make($input, $rules);
+            if ($checkValid->fails()) {
+                $data = Session::flash('error', 'Please Provide All Datas!');
+                return Redirect::back()
+                ->withInput()
+                ->withErrors($data);
+            } else { 
+               
+                $categoryInput = array(
+                    'id' => $input['id'],
+                    'category' => $input['category'],
+                    'desc' => $input['desc'],
+                    'status'=>1
+                );
+                $category = $this->admin->addCategory($categoryInput);
+               if ($category) {
+                   
+                return redirect('admin/productcategorylist');
+                } else {
+                    $data = Session::flash('warning', 'Something Error Occured!');
+                    return redirect('login')->with(['data', $data], ['warning', $data]);
+                }
+            }
+        } else {
+            return Response::json([
+                        'status' => 0,
+                        'message' => "No data"
+            ]);
+        }
+       
+    }
+    public function addproducts(Request $request)
+    {
+        $data=$request->all();
+         //dd($data);
+
+        if ($data != null) {
+
+            $input = [
+                'id' => isset($data['id']) ? $data['id'] : false,
+                'productcategory' => isset($data['productcategory']) ? $data['productcategory'] : '',
+                'producttitle' => isset($data['producttitle']) ? $data['producttitle'] : '',
+                'desc' => isset($data['desc']) ? $data['desc'] : '',
+                'p_image' => isset($data['p_image']) ? $data['p_image'] : '',
+                'productprice' => isset($data['productprice']) ? $data['productprice'] : '',
+            ];
+           // dd($input);
+                $rules = array(
+                    'productcategory' => 'required',
+                    'producttitle' => 'required',
+                    'desc' => 'required',
+                // 'productimage' => 'required',
+                    'productprice' => 'required',
+                
+                );
+                $checkValid = Validator::make($input, $rules);
+                if ($checkValid->fails()) {
+                    $data = Session::flash('error', 'Please Provide All Datas!');
+                    return Redirect::back()
+                    ->withInput()
+                    ->withErrors($data);
+                }
+
+           if($input['p_image']!='')
+           {
+            $images=array();
+            if($files=$request->file('p_image')){
+                foreach($files as $file){
+                    $name=$file->getClientOriginalExtension();
+                    $rand=substr(number_format(time() * rand(), 0, '', ''), 0, 4);
+                    $image = 'image' . '-' . $rand . '.' . $name;
+                    $file->move(public_path() . '/upload/products', $image);
+                    $images[]=$image;
+                }
+            }
+           
+                $categoryInput = array(
+                    'id' => $input['id'],
+                    'productcategory' => $input['productcategory'],
+                    'producttitle' => $input['producttitle'],
+                    'desc' => $input['desc'],
+                    'productimage' => implode(",",$images),
+                    'productprice' => $input['productprice'],
+                    'status'=>1
+                );
+            }else{
+                $categoryInput = array(
+                    'id' => $input['id'],
+                    'productcategory' => $input['productcategory'],
+                    'producttitle' => $input['producttitle'],
+                    'desc' => $input['desc'],
+                   // 'productimage' => implode(",",$images),
+                    'productprice' => $input['productprice'],
+                    'status'=>1
+                );
+            }
+                $products = $this->admin->products($categoryInput);
+               if ($products) {
+                   
+                return redirect('admin/productslist');
+                } else {
+                    $data = Session::flash('warning', 'Something Error Occured!');
+                    return redirect('login')->with(['data', $data], ['warning', $data]);
+                }
+         
+        } else {
+            return Response::json([
+                        'status' => 0,
+                        'message' => "No data"
+            ]);
+        }
+       
+    }
 }
