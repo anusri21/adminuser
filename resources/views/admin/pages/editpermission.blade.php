@@ -8,7 +8,7 @@
                             <input type="hidden" class="form-control" value="{{$user->id}}" name="id" >
                             <div class="panel panel-default">
                                 <div class="panel-heading">
-                                    <h3 class="panel-title"><strong>Add Role</strong> </h3>
+                                    <h3 class="panel-title"><strong>Edit User Permission</strong> </h3>
                                     <div class="flash-message">
                                         @include('admin.pages.notification')
                                     </div>
