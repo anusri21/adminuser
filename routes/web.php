@@ -36,11 +36,24 @@ Route::group(['prefix' => 'admin'], function(){
     Route::get('edituser/{id}','HomeController@edituser');
     Route::get('deleteuser/{id}','HomeController@deleteuser');
 
+    Route::get('addproducts','HomeController@addproducts');
+    Route::get('productslist','HomeController@productslist');
+    Route::get('editproducts/{id}','HomeController@editproducts');
+    Route::get('deleteproducts/{id}','HomeController@deleteproducts');
+
+    Route::get('addcategory','HomeController@addcategory');
+    Route::get('productcategorylist','HomeController@productcategorylist');
+    Route::get('editproductcategory/{id}','HomeController@editproductcategory');
+    Route::get('deleteproductcategory/{id}','HomeController@deleteproductcategory');
+
+
 
 
     Route::post('addrole','AdminController@addrole');
     Route::post('addpermission','AdminController@addpermission');
     Route::post('adduser','AdminController@adduser');
+     Route::post('addcategory','AdminController@addcategory');
+     Route::post('addproducts','AdminController@addproducts');
 
 
 
